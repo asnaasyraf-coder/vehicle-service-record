@@ -2,10 +2,34 @@
 <html lang="ms">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Rekod Servis</title>
 </head>
 <body>
   <h1>Rekod Servis Kenderaan</h1>
-  <p>Halaman saya sudah jalan!</p>
+
+  <form id="borang">
+    <p>
+      <label>Tarikh<br>
+        <input id="date" type="date" required>
+      </label>
+    </p>
+    <p>
+      <label>Odometer (km)<br>
+        <input id="odo" type="number" required>
+      </label>
+    </p>
+    <p>
+      <label>Jenis servis<br>
+        <input id="type" placeholder="cth. Tukar minyak enjin" required>
+      </label>
+    </p>
+    <p>
+      <label>Kos (RM)<br>
+        <input id="cost" type="number" step="0.01" required>
+      </label>
+    </p>
+    <button type="submit">Simpan</button>
+  </form>
 </body>
 </html>
