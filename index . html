@@ -31,5 +31,53 @@
     </p>
     <button type="submit">Simpan</button>
   </form>
+
+  <h2>Sejarah servis</h2>
+  <table border="1" cellpadding="6">
+    <thead>
+      <tr><th>Tarikh</th><th>Odometer</th><th>Servis</th><th>Kos</th></tr>
+    </thead>
+    <tbody id="senarai"></tbody>
+  </table>
+  <p>Jumlah kos: <b id="jumlah">RM 0.00</b></p>
+
+  <script>
+    // 1. Ambil data lama (kalau ada)
+    let rekod = JSON.parse(localStorage.getItem("rekod")) || [];
+
+    // 2. Papar data dalam jadual
+    function papar() {
+      const tbody = document.getElementById("senarai");
+      tbody.innerHTML = "";
+      let jumlah = 0;
+
+      rekod.forEach(function (r) {
+        tbody.innerHTML += "<tr><td>" + r.date + "</td><td>" + r.odo +
+          " km</td><td>" + r.type + "</td><td>RM " + r.cost.toFixed(2) + "</td></tr>";
+        jumlah += r.cost;
+      });
+
+      document.getElementById("jumlah").textContent = "RM " + jumlah.toFixed(2);
+    }
+
+    // 3. Bila butang Simpan ditekan
+    document.getElementById("borang").addEventListener("submit", function (e) {
+      e.preventDefault(); // elak halaman refresh
+
+      rekod.push({
+        date: document.getElementById("date").value,
+        odo: Number(document.getElementById("odo").value),
+        type: document.getElementById("type").value,
+        cost: Number(document.getElementById("cost").value)
+      });
+
+      localStorage.setItem("rekod", JSON.stringify(rekod));
+      papar();
+      e.target.reset();
+    });
+
+    // 4. Papar data bila halaman dibuka
+    papar();
+  </script>
 </body>
 </html>
